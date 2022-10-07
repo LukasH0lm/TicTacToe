@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 
 public class Controller {
 
+    
+
     @FXML
     private Button bottomLeftSpace;
 
@@ -44,10 +46,16 @@ public class Controller {
     private Button topRightSpace;
 
     @FXML
-    private Label turnLabel;
+    public Label turnLabel;
 
     @FXML
     void handleButtonClick(ActionEvent event) {
+        String pressedButtonId = ((Button) event.getSource()).getId();
+        String pressedButtonText = ((Button)event.getSource()).getText();
+        System.out.println(pressedButtonId);
+        System.out.println(pressedButtonText);
+
+        Game.turnTaker(event);
 
     }
 
