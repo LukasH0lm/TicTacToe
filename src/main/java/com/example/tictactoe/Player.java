@@ -4,26 +4,27 @@ import java.util.LinkedList;
 
 public class Player {
 
-    String icon;
-    int Number;
-    LinkedList<String> currentSpaces;
+    private String icon;
+    private int number;
+    private LinkedList<String> currentSpaces;
 
     public Player(String playerIcon, int playerNumber ){
 
         icon = playerIcon;
-        Number = playerNumber;
+        number = playerNumber;
         currentSpaces = new LinkedList<>();
     }
 
-    /* burde bruges når vi refactor koden
 
     public String getIcon(){
         return this.icon;
     }
 
     public int getNumber(){
-        return this.Number;
+        return this.number;
     }
-*/
 
+    public LinkedList<String> getCurrentSpaces(){
+        return this.currentSpaces;
+    }
 }

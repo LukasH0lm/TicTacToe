@@ -7,16 +7,14 @@ import javafx.scene.control.Label;
 
 public class Controller {
 
-    
+    @FXML
+    private Button topLeftSpace;
 
     @FXML
-    private Button bottomLeftSpace;
+    private Button topMiddleSpace;
 
     @FXML
-    private Button bottomMiddleSpace;
-
-    @FXML
-    private Button bottomRightSpace;
+    private Button topRightSpace;
 
     @FXML
     private Button middleLeftSpace;
@@ -28,6 +26,17 @@ public class Controller {
     private Button middleRightSpace;
 
     @FXML
+    private Button bottomLeftSpace;
+
+    @FXML
+    private Button bottomMiddleSpace;
+
+    @FXML
+    private Button bottomRightSpace;
+
+
+
+    @FXML
     private Label scoreLabel1;
 
     @FXML
@@ -36,24 +45,13 @@ public class Controller {
     @FXML
     private Label topLabel;
 
-    @FXML
-    private Button topLeftSpace;
+
 
     @FXML
-    private Button topMiddleSpace;
-
-    @FXML
-    private Button topRightSpace;
-
-    @FXML
-    public Label turnLabel;
+    private Label turnLabel;
 
     @FXML
     void handleButtonClick(ActionEvent event) {
-        String pressedButtonId = ((Button) event.getSource()).getId();
-        String pressedButtonText = ((Button)event.getSource()).getText();
-        System.out.println(pressedButtonId);
-        System.out.println(pressedButtonText);
 
         Game.turnTaker(event);
 

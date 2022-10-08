@@ -10,7 +10,11 @@ import java.util.Objects;
 public class Game {
 
     //den nuværende spiller
-    static Player currentPlayer;
+    private static Player currentPlayer;
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     //har spillerne brugt alle deres icon?
     static boolean noMoreIcons = false;
@@ -34,8 +38,6 @@ public class Game {
 
         Game.currentPlayer = Player1;
 
-        System.out.println(Player1.icon);
-        System.out.println(Player1.Number);
 
         ArrayList<ArrayList<String>> winComboBuffer = new ArrayList<>() {
         };
@@ -133,7 +135,7 @@ static void win(){
 
     static void checkWin(Player p){
 
-        ArrayList<String> playerSpaces = new ArrayList<>(p.currentSpaces);
+        ArrayList<String> playerSpaces = new ArrayList<>(p.getCurrentSpaces());
         playerSpaces.sort(null);
 
 
@@ -164,23 +166,25 @@ static void win(){
 
         if (noMoreIcons){
             if (holdingIcon){
+                //hvis spillerne ikke har flere ikoner og currentPLayer holder et icon
                 if (Objects.equals(pressedButtonText, "")){
-                    ((Button)event.getSource()).setText(currentPlayer.icon);
+                    ((Button)event.getSource()).setText(currentPlayer.getIcon());
                     holdingIcon = false;
                     changePlayer();
                 }else {
                     System.out.println("ERROR: space is already occupied");
                 }
-            }else if (Objects.equals(pressedButtonText, currentPlayer.icon)){
+                //hvis spilleren ikke har flere ikoner og clicker på et af sine egne ikoner
+            }else if (Objects.equals(pressedButtonText, currentPlayer.getIcon())){
                 ((Button)event.getSource()).setText("");
                 holdingIcon = true;
 
             }
 
-
+            //hvis spillerne har flere brikker tilbage
         } else if (Objects.equals(pressedButtonText, "")){
-            ((Button)event.getSource()).setText(currentPlayer.icon);
-            currentPlayer.currentSpaces.add(pressedButtonId);
+            ((Button)event.getSource()).setText(currentPlayer.getIcon());
+            currentPlayer.getCurrentSpaces().add(pressedButtonId);
             checkWin(currentPlayer);
 
             changePlayer();
