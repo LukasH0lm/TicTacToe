@@ -6,13 +6,13 @@ public class Player {
 
     private String icon;
     private int number;
-    private LinkedList<String> currentSpaces;
+    private LinkedList<Tile> currentTiles;
 
     public Player(String playerIcon, int playerNumber ){
 
         icon = playerIcon;
         number = playerNumber;
-        currentSpaces = new LinkedList<>();
+        currentTiles = new LinkedList<>();
     }
 
 
@@ -24,7 +24,7 @@ public class Player {
         return this.number;
     }
 
-    public LinkedList<String> getCurrentSpaces(){
-        return this.currentSpaces;
+    public LinkedList<Tile> getCurrentTiles(){
+        return this.currentTiles;
     }
 }

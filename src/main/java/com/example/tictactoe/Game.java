@@ -5,109 +5,138 @@ import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class Game {
 
     //den nuværende spiller
-    private static Player currentPlayer;
+    private Player currentPlayer;
+
+    private LinkedList<Tile> tileList = new LinkedList<>();
+
+    public LinkedList<Tile> getTileList() {
+        return tileList;
+
+    }
 
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
     //har spillerne brugt alle deres icon?
-    static boolean noMoreIcons = false;
+    private boolean noMoreIcons = false;
 
     //er spilleren i gang med at flytte sit ikon?
-    static boolean holdingIcon = false;
+    private boolean holdingIcon = false;
 
-    static Player[] playerList;
+    Player[] playerList;
 
-    static int iconsLeft = 6;
+    private int iconsLeft = 6;
 
-    static ArrayList<ArrayList<String>> winCombos = new ArrayList<>() {
+
+    private ArrayList<ArrayList<Tile>> winCombos = new ArrayList<>() {
     };
 
-
-        static void setup() {
+    public Game() {
+        setup();
+    }
+        void setup() {
         Player Player1 = new Player("X", 1);
         Player Player2 = new Player("O", 2);
 
         playerList = new Player[]{Player1, Player2};
 
-        Game.currentPlayer = Player1;
+        this.currentPlayer = Player1;
 
 
-        ArrayList<ArrayList<String>> winComboBuffer = new ArrayList<>() {
+        Tile tile1 = new Tile(1,' ');
+        Tile tile2 = new Tile(2,' ');
+        Tile tile3 = new Tile(3,' ');
+        Tile tile4 = new Tile(4,' ');
+        Tile tile5 = new Tile(5,' ');
+        Tile tile6 = new Tile(6,' ');
+        Tile tile7 = new Tile(7,' ');
+        Tile tile8 = new Tile(8,' ');
+        Tile tile9 = new Tile(9,' ');
+
+        LinkedList<Tile> tileList = new LinkedList<>(
+                    List.of(tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9)
+        );
+
+
+
+        ArrayList<ArrayList<Tile>> winComboBuffer = new ArrayList<>() {
         };
-        ArrayList<String> topCombo = new ArrayList<>() {
-        };
-
-                topCombo.add("topLeftSpace");
-                topCombo.add("topMiddleSpace");
-                topCombo.add("topRightSpace");
-
-
-        ArrayList<String> middleHorizontalCombo = new ArrayList<>() {
-        };
-
-                middleHorizontalCombo.add("middleLeftSpace");
-                middleHorizontalCombo.add("middleMiddleSpace");
-                middleHorizontalCombo.add("middleRightSpace");
-
-
-
-        ArrayList<String> bottomCombo = new ArrayList<>() {
-        };
-
-                bottomCombo.add("bottomLeftSpace");
-                bottomCombo.add("bottomMiddleSpace");
-                bottomCombo.add("bottomRightSpace");
-
-
-
-        ArrayList<String> leftCombo = new ArrayList<>() {
+        ArrayList<Tile> topCombo = new ArrayList<>() {
         };
 
-                leftCombo.add("topLeftSpace");
-                leftCombo.add("middleLeftSpace");
-                leftCombo.add("bottomLeftSpace");
+                topCombo.add(tile1);
+                topCombo.add(tile2);
+                topCombo.add(tile3);
 
 
-        ArrayList<String> middleVerticalCombo = new ArrayList<>() {
+
+            ArrayList<Tile> middleHorizontalCombo = new ArrayList<>() {
         };
 
-                middleVerticalCombo.add("topMiddleSpace");
-                middleVerticalCombo.add("middleMiddleSpace");
-                middleVerticalCombo.add("bottomMiddleSpace");
+            topCombo.add(tile4);
+            topCombo.add(tile5);
+            topCombo.add(tile6);
 
 
 
-        ArrayList<String> rightCombo = new ArrayList<>() {
+        ArrayList<Tile> bottomCombo = new ArrayList<>() {
         };
 
-                rightCombo.add("topRightSpace");
-                rightCombo.add("middleRightSpace");
-                rightCombo.add("bottomRightSpace");
+            topCombo.add(tile7);
+            topCombo.add(tile8);
+            topCombo.add(tile9);
 
 
 
-        ArrayList<String> topLeft = new ArrayList<>() {
+        ArrayList<Tile> leftCombo = new ArrayList<>() {
+        };
+
+            topCombo.add(tile1);
+            topCombo.add(tile4);
+            topCombo.add(tile7);
+
+
+        ArrayList<Tile> middleVerticalCombo = new ArrayList<>() {
+        };
+
+            topCombo.add(tile2);
+            topCombo.add(tile5);
+            topCombo.add(tile8);
+
+
+
+        ArrayList<Tile> rightCombo = new ArrayList<>() {
+        };
+
+            topCombo.add(tile3);
+            topCombo.add(tile6);
+            topCombo.add(tile9);
+
+
+
+        ArrayList<Tile> topLeft = new ArrayList<>() {
         };
             {
-                topLeft.add("topLeftSpace");
-                topLeft.add("middleMiddleSpace");
-                topLeft.add("bottomRightSpace");
+                topCombo.add(tile1);
+                topCombo.add(tile5);
+                topCombo.add(tile9);
             }
 
 
-        ArrayList<String> bottomLeft = new ArrayList<>() {
+        ArrayList<Tile> bottomLeft = new ArrayList<>() {
         };
             {
-                bottomLeft.add("bottomLeftSpace");
-                bottomLeft.add("middleMiddleSpace");
-                bottomLeft.add("bottomRightSpace");
+                topCombo.add(tile7);
+                topCombo.add(tile5);
+                topCombo.add(tile3);
             }
 
 
@@ -126,21 +155,20 @@ public class Game {
     }
 
 
-
-static void win(){
+    void win(){
     System.out.println(currentPlayer.toString() + " Wins!");
     System.exit(0);
 }
 
 
-    static void checkWin(Player p){
+    void checkWin(Player p){
 
-        ArrayList<String> playerSpaces = new ArrayList<>(p.getCurrentSpaces());
+        ArrayList<Tile> playerSpaces = new ArrayList<>(p.getCurrentTiles());
         playerSpaces.sort(null);
 
 
         System.out.println("player has:" + playerSpaces);
-        for (ArrayList<String> comboBuffer : winCombos) {
+        for (ArrayList<Tile> comboBuffer : winCombos) {
             comboBuffer.sort(null);
 
             System.out.println(comboBuffer);
@@ -151,7 +179,7 @@ static void win(){
 
     }
 
-    static void changePlayer(){
+    void changePlayer(){
         if (currentPlayer == playerList[0]) {
             currentPlayer = playerList[1];
         }else{
@@ -160,9 +188,16 @@ static void win(){
     }
 
 
-    public static void turnTaker(ActionEvent event){
-        String pressedButtonId = ((Button) event.getSource()).getId();
-        String pressedButtonText = ((Button)event.getSource()).getText();
+    public void turnTaker(ActionEvent event){
+
+
+
+        Tile currentTile = getTileList().get(Integer.parseInt(((Button) event.getSource()).getId()) - 1);
+
+        int pressedButtonId = currentTile.getCurrentPosition();
+
+        char pressedButtonText = currentTile.getCurrentIcon();
+
 
         if (noMoreIcons){
             if (holdingIcon){
@@ -184,7 +219,7 @@ static void win(){
             //hvis spillerne har flere brikker tilbage
         } else if (Objects.equals(pressedButtonText, "")){
             ((Button)event.getSource()).setText(currentPlayer.getIcon());
-            currentPlayer.getCurrentSpaces().add(pressedButtonId);
+            currentPlayer.getCurrentTiles().add(currentTile.getCurrentPosition());
             checkWin(currentPlayer);
 
             changePlayer();
