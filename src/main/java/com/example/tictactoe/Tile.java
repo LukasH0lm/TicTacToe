@@ -13,11 +13,11 @@ public class Tile {
     }
 
     public int getCurrentPosition() {
-        return currentPosition;
+        return this.currentPosition;
     }
 
     public char getCurrentIcon() {
-        return currentIcon;
+        return this.currentIcon;
     }
 
 
@@ -29,12 +29,13 @@ public class Tile {
         return this;
     }
 
-    Tile getTile(int position){
+    static Tile getTile(int position){
         for(Tile tile : Game.getTileList()){
             if(tile.getCurrentPosition() == position){
                 return tile;
             }
         }
+        return null;
     }
 
 }

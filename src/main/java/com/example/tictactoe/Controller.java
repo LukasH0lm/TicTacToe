@@ -7,46 +7,45 @@ import javafx.scene.control.Label;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class Controller {
 
-    private Game currentGame;
 
-    private void initialize(){
-
-        Game currentGame = new Game();
+    Game currentGame = new Game();
+    @FXML
+    public void initialize() {
         LinkedList<Tile> tileList = new LinkedList<>();
-
-
-
     }
 
-    @FXML
-    private Button topLeftSpace;
+
 
     @FXML
-    private Button topMiddleSpace;
+    private Button topLeftSpace1;
 
     @FXML
-    private Button topRightSpace;
+    private Button topMiddleSpace2;
 
     @FXML
-    private Button middleLeftSpace;
+    private Button topRightSpace3;
 
     @FXML
-    private Button middleMiddleSpace;
+    private Button middleLeftSpace4;
 
     @FXML
-    private Button middleRightSpace;
+    private Button middleMiddleSpace5;
 
     @FXML
-    private Button bottomLeftSpace;
+    private Button middleRightSpace6;
 
     @FXML
-    private Button bottomMiddleSpace;
+    private Button bottomLeftSpace7;
 
     @FXML
-    private Button bottomRightSpace;
+    private Button bottomMiddleSpace8;
+
+    @FXML
+    private Button bottomRightSpace9;
 
 
 
@@ -58,6 +57,7 @@ public class Controller {
 
     @FXML
     private Label topLabel;
+
 
 
 
@@ -73,20 +73,22 @@ public class Controller {
 
     void updateUI(){
 
-        /*
-        topLeftSpace.setText(String.valueOf(currentGame.getTile(1).getCurrentIcon()));
-        topMiddleSpace.setText(String.valueOf(currentGame.getTile(2).getCurrentIcon()));
-        topRightSpace.setText(String.valueOf(currentGame.getTile(3).getCurrentIcon()));
-        middleLeftSpace.setText(String.valueOf(currentGame.getTile(4).getCurrentIcon()));
-        middleMiddleSpace.setText(String.valueOf(currentGame.getTile(5).getCurrentIcon()));
-        middleRightSpace.setText(String.valueOf(currentGame.getTile(6).getCurrentIcon()));
-        bottomLeftSpace.setText(String.valueOf(currentGame.getTile(7).getCurrentIcon()));
-        bottomMiddleSpace.setText(String.valueOf(currentGame.getTile(8).getCurrentIcon()));
-        bottomRightSpace.setText(String.valueOf(currentGame.getTile(9).getCurrentIcon()));
-        scoreLabel1.setText(String.valueOf(currentGame.getPlayer(1).getCurrentTiles().size()));
-        scoreLabel2.setText(String.valueOf(currentGame.getPlayer(2).getCurrentTiles().size()));
+
+        topLeftSpace1.setText(String.valueOf(Objects.requireNonNull(Tile.getTile(1)).getCurrentIcon()));
+        topMiddleSpace2.setText(String.valueOf(Objects.requireNonNull(Tile.getTile(1)).getCurrentIcon()));
+        topRightSpace3.setText(String.valueOf(Objects.requireNonNull(Tile.getTile(1)).getCurrentIcon()));
+        middleLeftSpace4.setText(String.valueOf(Objects.requireNonNull(Tile.getTile(1)).getCurrentIcon()));
+        middleMiddleSpace5.setText(String.valueOf(Objects.requireNonNull(Tile.getTile(1)).getCurrentIcon()));
+        middleRightSpace6.setText(String.valueOf(Objects.requireNonNull(Tile.getTile(1)).getCurrentIcon()));
+        bottomLeftSpace7.setText(String.valueOf(Objects.requireNonNull(Tile.getTile(1)).getCurrentIcon()));
+        bottomMiddleSpace8.setText(String.valueOf(Objects.requireNonNull(Tile.getTile(1)).getCurrentIcon()));
+        bottomRightSpace9.setText(String.valueOf(Objects.requireNonNull(Tile.getTile(1)).getCurrentIcon()));
+        scoreLabel1.setText(String.valueOf(Objects.requireNonNull(Player.getPlayer(1)).getWins()));
+        scoreLabel2.setText(String.valueOf(Objects.requireNonNull(Player.getPlayer(2)).getWins()));
         turnLabel.setText(String.valueOf(currentGame.getCurrentPlayer().getIcon()));
-        */
+        topLabel.setText(String.valueOf(currentGame.topLabelString));
+
+
 
     }
 

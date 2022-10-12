@@ -18,15 +18,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="topLeftSpace" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" />
-            <Button fx:id="topMiddleSpace" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="1" />
-            <Button fx:id="topRightSpace" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="2" />
-            <Button fx:id="middleLeftSpace" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.rowIndex="1" />
-            <Button fx:id="middleMiddleSpace" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Button fx:id="middleRightSpace" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="bottomLeftSpace" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.rowIndex="2" />
-            <Button fx:id="bottomMiddleSpace" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="bottomRightSpace" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="topLeftSpace1" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" />
+            <Button fx:id="topMiddleSpace2" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="1" />
+            <Button fx:id="topRightSpace3" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="2" />
+            <Button fx:id="middleLeftSpace4" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.rowIndex="1" />
+            <Button fx:id="middleMiddleSpace5" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Button fx:id="middleRightSpace6" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="bottomLeftSpace7" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.rowIndex="2" />
+            <Button fx:id="bottomMiddleSpace8" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="bottomRightSpace9" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="202.0" prefWidth="278.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="scoreLabel1" prefHeight="18.0" prefWidth="103.0" text="Player 1:" />

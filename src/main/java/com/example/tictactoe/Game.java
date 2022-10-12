@@ -3,21 +3,34 @@ package com.example.tictactoe;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
-import java.util.ArrayList;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Game {
 
     //den nuværende spiller
     private Player currentPlayer;
 
-    private LinkedList<Tile> tileList = new LinkedList<>();
+    private static LinkedList<Tile> tileList;
+    private ArrayList<Tile> topCombo;
+    private ArrayList<Tile> middleCombo;
+    private ArrayList<Tile> bottomCombo;
+    private ArrayList<Tile> leftCombo;
+    private ArrayList<Tile> middleHorizontalCombo;
+    private ArrayList<Tile> rightCombo;
+    private ArrayList<Tile> a7;
+    private ArrayList<Tile> topLeftCombo;
+    private ArrayList<Tile> bottomLeftCombo;
+    private ArrayList<Tile> middleVerticalCombo;
 
-    public LinkedList<Tile> getTileList() {
+    String topLabelString;
+
+    public static LinkedList<Tile> getTileList() {
         return tileList;
+
+    }
+
+    public static LinkedList<Player> getPlayer() {
+        return playerList;
 
     }
 
@@ -26,31 +39,40 @@ public class Game {
     }
 
     //har spillerne brugt alle deres icon?
-    private boolean noMoreIcons = false;
+    private boolean hasIconsLeft = true;
 
     //er spilleren i gang med at flytte sit ikon?
     private boolean holdingIcon = false;
 
-    Player[] playerList;
+    static LinkedList<Player> playerList;
+
+    public static LinkedList<Player> getPlayerList(){
+        return playerList;
+    }
 
     private int iconsLeft = 6;
 
 
-    private ArrayList<ArrayList<Tile>> winCombos = new ArrayList<>() {
-    };
+    private ArrayList<ArrayList<Tile>> winCombos = new ArrayList<ArrayList<Tile>>();
 
     public Game() {
         setup();
     }
-        void setup() {
-        Player Player1 = new Player("X", 1);
-        Player Player2 = new Player("O", 2);
+    void setup() {
+        Player Player1 = new Player('X', 1);
+        Player Player2 = new Player('O', 2);
 
-        playerList = new Player[]{Player1, Player2};
+        playerList = new LinkedList<>(){};
+
+        playerList.add(Player1);
+        playerList.add(Player2);
+
 
         this.currentPlayer = Player1;
 
 
+        //tile0 er en quick and dirty måde at undgå IndexOutOfBounds
+        Tile tile0 = new Tile(0,' ');
         Tile tile1 = new Tile(1,' ');
         Tile tile2 = new Tile(2,' ');
         Tile tile3 = new Tile(3,' ');
@@ -60,98 +82,68 @@ public class Game {
         Tile tile7 = new Tile(7,' ');
         Tile tile8 = new Tile(8,' ');
         Tile tile9 = new Tile(9,' ');
+        Tile tile10 = new Tile(10,' ');
 
-        LinkedList<Tile> tileList = new LinkedList<>(
-                    List.of(tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9)
+        tileList = new LinkedList<>(
+                    List.of(tile0,tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9)
         );
 
 
-
-        ArrayList<ArrayList<Tile>> winComboBuffer = new ArrayList<>() {
-        };
-        ArrayList<Tile> topCombo = new ArrayList<>() {
-        };
-
-                topCombo.add(tile1);
-                topCombo.add(tile2);
-                topCombo.add(tile3);
+        topCombo = new ArrayList<Tile>();
+        topCombo.add(tile1);
+        topCombo.add(tile2);
+        topCombo.add(tile3);
+        winCombos.add(topCombo);
 
 
-
-            ArrayList<Tile> middleHorizontalCombo = new ArrayList<>() {
-        };
-
-            topCombo.add(tile4);
-            topCombo.add(tile5);
-            topCombo.add(tile6);
+        middleCombo = new ArrayList<Tile>();
+        middleCombo.add(tile4);
+        middleCombo.add(tile5);
+        middleCombo.add(tile6);
+        winCombos.add(middleCombo);
 
 
+        bottomCombo = new ArrayList<Tile>();
+        bottomCombo.add(tile7);
+        bottomCombo.add(tile8);
+        bottomCombo.add(tile9);
+        winCombos.add(bottomCombo);
 
-        ArrayList<Tile> bottomCombo = new ArrayList<>() {
-        };
+        leftCombo = new ArrayList<Tile>();
+        leftCombo.add(tile1);
+        leftCombo.add(tile4);
+        leftCombo.add(tile7);
+        winCombos.add(leftCombo);
 
-            topCombo.add(tile7);
-            topCombo.add(tile8);
-            topCombo.add(tile9);
+        middleVerticalCombo = middleHorizontalCombo;
+        middleVerticalCombo = new ArrayList<Tile>();
+        middleVerticalCombo.add(tile2);
+        middleVerticalCombo.add(tile5);
+        middleVerticalCombo.add(tile8);
+        winCombos.add(middleVerticalCombo);
 
+        rightCombo = new ArrayList<Tile>();
+        rightCombo.add(tile3);
+        rightCombo.add(tile6);
+        rightCombo.add(tile9);
+        winCombos.add(rightCombo);
 
+        topLeftCombo = new ArrayList<Tile>();
+        topLeftCombo.add(tile1);
+        topLeftCombo.add(tile5);
+        topLeftCombo.add(tile9);
+        winCombos.add(topLeftCombo);
 
-        ArrayList<Tile> leftCombo = new ArrayList<>() {
-        };
-
-            topCombo.add(tile1);
-            topCombo.add(tile4);
-            topCombo.add(tile7);
-
-
-        ArrayList<Tile> middleVerticalCombo = new ArrayList<>() {
-        };
-
-            topCombo.add(tile2);
-            topCombo.add(tile5);
-            topCombo.add(tile8);
-
-
-
-        ArrayList<Tile> rightCombo = new ArrayList<>() {
-        };
-
-            topCombo.add(tile3);
-            topCombo.add(tile6);
-            topCombo.add(tile9);
-
-
-
-        ArrayList<Tile> topLeft = new ArrayList<>() {
-        };
-            {
-                topCombo.add(tile1);
-                topCombo.add(tile5);
-                topCombo.add(tile9);
-            }
+        topLeftCombo = new ArrayList<Tile>();
+        this.topLeftCombo.add(tile7);
+        this.topLeftCombo.add(tile5);
+        this.topLeftCombo.add(tile3);
+        winCombos.add(this.topLeftCombo);
 
 
-        ArrayList<Tile> bottomLeft = new ArrayList<>() {
-        };
-            {
-                topCombo.add(tile7);
-                topCombo.add(tile5);
-                topCombo.add(tile3);
-            }
+        System.out.println(winCombos);
 
 
-
-        winComboBuffer.add(topCombo);
-        winComboBuffer.add(middleHorizontalCombo);
-        winComboBuffer.add(bottomCombo);
-        winComboBuffer.add(leftCombo);
-        winComboBuffer.add(middleVerticalCombo);
-        winComboBuffer.add(rightCombo);
-        winComboBuffer.add(topLeft);
-        winComboBuffer.add(bottomLeft);
-
-
-        winCombos = winComboBuffer;
     }
 
 
@@ -164,12 +156,13 @@ public class Game {
     void checkWin(Player p){
 
         ArrayList<Tile> playerSpaces = new ArrayList<>(p.getCurrentTiles());
-        playerSpaces.sort(null);
 
+        playerSpaces.sort(Comparator.comparing(Tile::getCurrentPosition));
 
         System.out.println("player has:" + playerSpaces);
         for (ArrayList<Tile> comboBuffer : winCombos) {
-            comboBuffer.sort(null);
+            comboBuffer.sort(Comparator.comparing(Tile::getCurrentPosition));
+
 
             System.out.println(comboBuffer);
             if (playerSpaces.equals(comboBuffer)) {
@@ -180,57 +173,72 @@ public class Game {
     }
 
     void changePlayer(){
-        if (currentPlayer == playerList[0]) {
-            currentPlayer = playerList[1];
+        if (currentPlayer == playerList.get(0)) {
+            currentPlayer = playerList.get(1);
         }else{
-            currentPlayer = playerList[0];
+            currentPlayer = playerList.get(0);
         }
     }
 
 
     public void turnTaker(ActionEvent event){
 
-
-
-        Tile currentTile = getTileList().get(Integer.parseInt(((Button) event.getSource()).getId()) - 1);
+        String bufferId = ((Button) event.getSource()).getId();
+        int bufferIntId = Integer.parseInt(bufferId.substring(bufferId.length() -1));
+        System.out.println(bufferIntId);
+        Tile currentTile = getTileList().get(bufferIntId);
 
         int pressedButtonId = currentTile.getCurrentPosition();
 
-        char pressedButtonText = currentTile.getCurrentIcon();
+        char pressedButtonIcon = currentTile.getCurrentIcon();
+        System.out.println(pressedButtonIcon);
 
 
-        if (noMoreIcons){
-            if (holdingIcon){
+        if (hasIconsLeft){
+
+            //hvis spilleren har ikoner tilbage
+            if(Objects.equals(pressedButtonIcon, ' ')) {
+                ((Button) event.getSource()).setText(Character.toString(currentPlayer.getIcon()));
+                currentPlayer.getCurrentTiles().add(currentTile);
+                checkWin(currentPlayer);
+
+                currentTile.setCurrentIcon(currentPlayer.getIcon());
+
+                changePlayer();
+                iconsLeft--;
+                if (iconsLeft == 0) {
+                    hasIconsLeft = false;
+                }
+            }else{
+                System.out.println("ERROR: space is already occupied");
+                topLabelString = "space is already occupied";
+
+            }
+
+        }else if (holdingIcon) {
+
+            //hvis spillerne ikke har flere ikoner og currentPLayer holder et icon
+            if (Objects.equals(pressedButtonIcon, ' ')){
+                ((Button)event.getSource()).setText(Character.toString(currentPlayer.getIcon()));
+                holdingIcon = false;
+                changePlayer();
+            }
+        }else if (Objects.equals(pressedButtonIcon, currentPlayer.getIcon())){
+            ((Button)event.getSource()).setText(" ");
+            holdingIcon = true;
+
                 //hvis spillerne ikke har flere ikoner og currentPLayer holder et icon
-                if (Objects.equals(pressedButtonText, "")){
-                    ((Button)event.getSource()).setText(currentPlayer.getIcon());
+                if (Objects.equals(pressedButtonIcon, ' ')){
+                    ((Button)event.getSource()).setText(Character.toString(currentPlayer.getIcon()));
                     holdingIcon = false;
                     changePlayer();
                 }else {
+                    System.out.println(pressedButtonIcon);
                     System.out.println("ERROR: space is already occupied");
                 }
                 //hvis spilleren ikke har flere ikoner og clicker på et af sine egne ikoner
-            }else if (Objects.equals(pressedButtonText, currentPlayer.getIcon())){
-                ((Button)event.getSource()).setText("");
-                holdingIcon = true;
 
-            }
 
-            //hvis spillerne har flere brikker tilbage
-        } else if (Objects.equals(pressedButtonText, "")){
-            ((Button)event.getSource()).setText(currentPlayer.getIcon());
-            currentPlayer.getCurrentTiles().add(currentTile.getCurrentPosition());
-            checkWin(currentPlayer);
-
-            changePlayer();
-            iconsLeft--;
-            if(iconsLeft == 0){
-                noMoreIcons = true;
-            }
-
-        }else{
-
-            System.out.println("ERROR: space is already occupied");
 
         }
     }
