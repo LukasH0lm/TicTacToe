@@ -21,7 +21,7 @@ public class Game {
     private ArrayList<Tile> bottomLeftCombo;
 
 
-    String centerTextAreaString;
+    String centerTextAreaString = "";
 
     public static LinkedList<Tile> getTileList() {
         return tileList;
@@ -114,7 +114,6 @@ public class Game {
         leftCombo.add(tile7);
         winCombos.add(leftCombo);
 
-        middleVerticalCombo = middleVerticalCombo;
         middleVerticalCombo = new ArrayList<Tile>();
         middleVerticalCombo.add(tile2);
         middleVerticalCombo.add(tile5);
@@ -134,9 +133,9 @@ public class Game {
         winCombos.add(topLeftCombo);
 
         bottomLeftCombo = new ArrayList<Tile>();
-        this.topLeftCombo.add(tile7);
-        this.topLeftCombo.add(tile5);
-        this.topLeftCombo.add(tile3);
+        bottomLeftCombo.add(tile7);
+        bottomLeftCombo.add(tile5);
+        bottomLeftCombo.add(tile3);
         winCombos.add(bottomLeftCombo);
 
 
@@ -149,7 +148,7 @@ public class Game {
     void win(){
     System.out.println(currentPlayer.toString() + " Wins!");
     currentPlayer.increaseWins();
-    centerTextAreaString = String.valueOf("player:" + getCurrentPlayer() + "has won!");
+    centerTextAreaString = String.valueOf("player" + getCurrentPlayer().getNumber() + " has won!");
     isGameOver = true;
 
 }
@@ -210,7 +209,7 @@ public class Game {
         if (hasIconsLeft) {
             //hvis spilleren har ikoner tilbage
             if (Objects.equals(pressedButtonIcon, ' ')) {
-                ((Button) event.getSource()).setText(Character.toString(currentPlayer.getIcon()));
+                currentTile.setCurrentIcon(currentPlayer.getIcon());
                 currentPlayer.getCurrentTiles().add(currentTile);
                 checkWin(currentPlayer);
 
@@ -231,8 +230,10 @@ public class Game {
 
             //hvis spillerne ikke har flere ikoner og currentPLayer holder et icon
             if (Objects.equals(pressedButtonIcon, ' ')) {
-                ((Button) event.getSource()).setText(Character.toString(currentPlayer.getIcon()));
+                currentTile.setCurrentIcon(currentPlayer.getIcon());
                 holdingIcon = false;
+                currentPlayer.getCurrentTiles().add(currentTile);
+                checkWin(currentPlayer);
                 changePlayer();
             } else {
                 centerTextAreaString = "tile is not empty";
@@ -240,11 +241,13 @@ public class Game {
             }
 
             //hvis spilleren ikke har flere ikoner og clicker på et af sine egne ikoner
-        } else if (Objects.equals(pressedButtonIcon, String.valueOf(currentPlayer.getIcon()))) {
-            ((Button) event.getSource()).setText(" ");
+        } else if (Objects.equals(pressedButtonIcon, currentPlayer.getIcon())) {
+
+
+            currentTile.setCurrentIcon(' ');
+            currentPlayer.getCurrentTiles().remove(currentTile);
             holdingIcon = true;
         } else {
-            System.out.println(pressedButtonIcon);
             centerTextAreaString = "player cannot take this icon";
 
             System.out.println("ERROR: player cannot take this icon");
@@ -257,6 +260,9 @@ public class Game {
 
 
     public void newGame() {
+
+        iconsLeft = 6;
+        hasIconsLeft = true;
 
         for(Tile tile : tileList){
 
